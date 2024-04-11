@@ -4,6 +4,8 @@ import discord
 from config.app_settings import DISCORD_TOKEN
 from apps.core.pybot import Pybot
 
+__all__ = ["Command"]
+
 
 class Command(BaseCommand):
     def handle(self, *args: Any, **options: Any):

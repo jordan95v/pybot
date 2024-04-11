@@ -1,5 +1,7 @@
 from django.db import models
 
+__all__: list[str] = ["Server", "Student"]
+
 
 class Server(models.Model):
     discord_id = models.BigIntegerField(unique=True, null=False)

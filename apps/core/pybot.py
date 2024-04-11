@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+__all__: list[str] = ["Pybot"]
+
 
 class Pybot(commands.Bot):
     def __init__(self, *args, **kwargs):
