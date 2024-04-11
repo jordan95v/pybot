@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.vscode/
+*sqlite*
+.env
+fatras.py
