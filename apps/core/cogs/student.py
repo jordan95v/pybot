@@ -3,6 +3,8 @@ from discord.ext import commands
 from apps.core.models import Server, Student
 from apps.core.pybot import Pybot
 
+__all__: list[str] = ["StudentCog"]
+
 
 class StudentCog(commands.Cog):
     def __init__(self, bot: Pybot):

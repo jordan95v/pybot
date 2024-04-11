@@ -7,11 +7,11 @@ from apps.core.cogs import AdminCog, StudentCog
 from apps.core.pybot import Pybot
 from config.app_settings import DISCORD_TOKEN
 
-__all__ = ["Command"]
+__all__: list[str] = ["Command"]
 
 
 class Command(BaseCommand):
-    def handle(self, *args: Any, **options: Any):
+    def handle(self, *args: Any, **options: Any) -> None:
         intents: discord.Intents = discord.Intents.all()
         pybot: Pybot = Pybot(command_prefix="?", intents=intents)
         cogs: list[type[commands.Cog]] = [AdminCog, StudentCog]

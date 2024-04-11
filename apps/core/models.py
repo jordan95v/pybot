@@ -1,4 +1,5 @@
 from django.db import models
+from config.app_settings import MAX_TIMESTAMP_BETWEEN_PARTICIPATIONS
 
 __all__: list[str] = ["Server", "Student"]
 
@@ -27,4 +28,4 @@ class Student(models.Model):
         if self.last_participation is None:
             return True
         last_participation: float = self.last_participation.timestamp()
-        return timestamp - last_participation >= 86400
+        return timestamp - last_participation >= MAX_TIMESTAMP_BETWEEN_PARTICIPATIONS
