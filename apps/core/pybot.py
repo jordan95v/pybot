@@ -34,6 +34,17 @@ class Pybot(commands.Bot):
             await self.add_cog(cog(self))
 
     @commands.Cog.listener()
+    async def on_command_error(
+        self, context: commands.Context, exception: commands.CommandError
+    ) -> None:
+        if isinstance(exception, commands.MissingRequiredArgument):
+            await context.reply("You are missing a required argument. Check help :)")
+            return
+        await context.reply(
+            "An error occurred. Check help or contact an administrator."
+        )
+
+    @commands.Cog.listener()
     async def on_ready(self) -> None:
         """Change the presence of the bot on ready."""
 
