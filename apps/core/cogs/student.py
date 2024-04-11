@@ -93,6 +93,9 @@ class StudentCog(commands.Cog):
             )
 
         server: Server = await self.bot.get_server(ctx)
+        if not server.is_open:
+            await ctx.reply(f"Association is closed, <@{ctx.author.id}>")
+            return
         try:
             student: Student = await Student.objects.aget(
                 discord_id=ctx.author.id, server=server

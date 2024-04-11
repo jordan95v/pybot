@@ -1,3 +1,8 @@
+import csv
+import os
+import tempfile
+from typing import Any
+import discord
 from discord.ext import commands
 from apps.core.models import Server, Student
 from apps.core.pybot import Pybot
@@ -75,3 +80,35 @@ class AdminCog(commands.Cog):
         await ctx.reply(
             f"{student.first_name} {student.last_name} now has {points} points"
         )
+
+    @commands.command(name="export")
+    @commands.has_permissions(administrator=True)
+    async def export(self, ctx: commands.Context) -> None:
+        """Export the database into a csv file.
+
+        Args:
+            ctx (commands.Context): The context of the command.
+        """
+
+        file: tempfile._TemporaryFileWrapper = tempfile.NamedTemporaryFile(
+            mode="w", suffix=".csv", newline="", delete=False
+        )
+        students: list[Student] = [
+            student
+            async for student in Student.objects.all()
+            .prefetch_related("server")
+            .filter(server__discord_id=ctx.guild.id)  # type: ignore
+        ]
+        csv_writer: Any = csv.writer(file, delimiter=";", quotechar="|")
+        for student in students:
+            csv_writer.writerow(
+                [
+                    student.first_name,
+                    student.last_name,
+                    student.class_name,
+                    student.points,
+                ]
+            )
+        file.close()
+        await ctx.reply(file=discord.File(file.name))
+        os.remove(file.name)
