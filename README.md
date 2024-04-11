@@ -30,8 +30,11 @@ Then you need to create a `.env` file in the root of the project with the follow
 And finally, you can run the bot with the following command:
 
 ```bash
+you@your-pc:~$ python manage.py migrate # Create the database
 you@your-pc:~$ python manage.py launch
 ```
+
+The bot is configured to use the `sqlite` database by default, but you can change it in the `settings.py` file.
 
 # Usage
 
