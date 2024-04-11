@@ -7,7 +7,7 @@ __all__: list[str] = ["StudentCog"]
 
 
 class StudentCog(commands.Cog):
-    def __init__(self, bot: Pybot):
+    def __init__(self, bot: Pybot) -> None:
         self.bot = bot
 
     @commands.command(name="register")

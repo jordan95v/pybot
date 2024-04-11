@@ -6,7 +6,7 @@ __all__: list[str] = ["Pybot"]
 
 
 class Pybot(commands.Bot):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
     async def get_server(self, ctx: commands.Context) -> Server:
