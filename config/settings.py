@@ -28,7 +28,7 @@ SECRET_KEY: Final[str] = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG: Final[bool] = True
+DEBUG: Final[bool] = bool(os.environ.get("DEBUG", False))
 
 ALLOWED_HOSTS: Final[list[str]] = []
 
