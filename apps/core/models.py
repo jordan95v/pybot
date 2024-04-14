@@ -24,7 +24,7 @@ class Student(models.Model):
         Server, on_delete=models.CASCADE, related_name="students"
     )
 
-    async def can_participate(self, timestamp: float) -> bool:
+    def can_participate(self, timestamp: float) -> bool:
         if self.last_participation is None:
             return True
         last_participation: float = self.last_participation.timestamp()

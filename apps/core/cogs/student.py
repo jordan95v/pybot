@@ -107,7 +107,7 @@ class StudentCog(commands.Cog):
         except Student.DoesNotExist:
             await ctx.reply(f"You are not registered, <@{ctx.author.id}>")
             return
-        if not await student.can_participate(ctx.message.created_at.timestamp()):
+        if not student.can_participate(ctx.message.created_at.timestamp()):
             await ctx.reply(f"You already participated today, <@{ctx.author.id}>")
             return
         await self.bot.wait_for("reaction_add", check=check)
