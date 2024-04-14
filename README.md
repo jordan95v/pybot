@@ -5,6 +5,7 @@ Simple bot to manage your association with a discord server.
 <h1>Table of contents</h1>
 
 - [Installation](#installation)
+  - [Launch tests](#launch-tests)
   - [Example of MySQL configuration](#example-of-mysql-configuration)
 - [Usage](#usage)
   - [Regular users commands](#regular-users-commands)
@@ -37,6 +38,15 @@ you@your-pc:~$ python manage.py launch
 
 The bot is configured to use the `sqlite` database by default, but you can change it in the `settings.py` file.<br>
 You can find more information about the database configuration in the [django 5.0 documentation](https://docs.djangoproject.com/en/5.0/ref/databases/#mysql-notes).
+
+## Launch tests
+
+Before launching the tests, you need to install the dev dependencies with the instruction above.
+You can launch the tests with the following command:
+
+```bash
+you@your-pc:~$ pytest
+```
 
 ## Example of MySQL configuration
 
