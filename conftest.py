@@ -10,7 +10,9 @@ def context(mocker: MockerFixture):
     mocker.patch.object(commands.Context, "__init__", return_value=None)
     mocker.patch.object(commands.Context, "author")
     mocker.patch.object(commands.Context.author, "id", 1234567890)
-    return commands.Context()  # type: ignore
+    ctx: commands.Context = commands.Context()  # type: ignore
+    ctx.message = MagicMock()
+    return ctx
 
 
 @pytest.fixture

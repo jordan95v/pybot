@@ -36,6 +36,7 @@ dev = [
     "pytest-cov",
     "pytest-django",
     "pytest-mock",
+    "freezegun",
 ]
 
 [tool.pytest.ini_options]
