@@ -23,6 +23,7 @@ class AdminCog(commands.Cog):
             ctx: The context of the command.
             points: The new points to give to each student per participation.
         """
+        print(points)
 
         server: Server = await self.bot.get_server(ctx)
         server.points_to_give = points

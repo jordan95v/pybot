@@ -40,7 +40,9 @@ dev = [
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-addopts = ["-vv", "--tb=short", "--cov", "--cov-report=term-missing"]
+addopts = "-vv --tb=short --cov=apps --cov-report=term-missing"
+DJANGO_SETTINGS_MODULE = "config.settings"
+filterwarnings = "ignore::DeprecationWarning"
 
 [tool.coverage.run]
 omit = ["**/tests/*", "**/__init__.py"]
