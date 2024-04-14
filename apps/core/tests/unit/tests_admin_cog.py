@@ -17,9 +17,7 @@ class TestAdminCog:
         pybot: Pybot,
         points: float,
     ) -> None:
-        server: Server = await Server.objects.acreate(
-            discord_id=123456789, is_open=True
-        )
+        server: Server = await Server.objects.acreate(discord_id=123456789)
         mocker.patch.object(Pybot, "get_server", return_value=server)
         cog: AdminCog = AdminCog(pybot)
         await cog.change_points(cog, context, points)  # type: ignore
@@ -90,9 +88,7 @@ class TestAdminCog:
         discord_id: int,
         should_create_student: bool,
     ) -> None:
-        server: Server = await Server.objects.acreate(
-            discord_id=123456789, is_open=True
-        )
+        server: Server = await Server.objects.acreate(discord_id=123456789)
         mocker.patch.object(Pybot, "get_server", return_value=server)
         reply_mock: MagicMock = mocker.patch.object(
             commands.Context, "reply", return_value=None

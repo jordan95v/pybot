@@ -24,18 +24,18 @@ class StudentCog(commands.Cog):
         """
 
         server: Server = await self.bot.get_server(ctx)
-        created: bool
-        _, created = await Student.objects.aget_or_create(
-            discord_id=ctx.author.id,
-            first_name=first_name,
-            last_name=last_name,
-            class_name=class_name,
-            server=server,
-        )
-        if created:
+        try:
+            await Student.objects.aget(discord_id=ctx.author.id, server=server)
+            await ctx.reply(f"You are already registered, <@{ctx.author.id}>")
+        except Student.DoesNotExist:
+            await Student.objects.acreate(
+                discord_id=ctx.author.id,
+                first_name=first_name,
+                last_name=last_name,
+                class_name=class_name,
+                server=server,
+            )
             await ctx.reply(f"Your registration is complete, <@{ctx.author.id}>")
-            return
-        await ctx.reply(f"You are already registered, <@{ctx.author.id}>")
 
     @commands.command(name="modify")
     async def modify(
@@ -73,9 +73,13 @@ class StudentCog(commands.Cog):
         """
 
         server: Server = await self.bot.get_server(ctx)
-        student: Student = await Student.objects.aget(
-            discord_id=ctx.author.id, server=server
-        )
+        try:
+            student: Student = await Student.objects.aget(
+                discord_id=ctx.author.id, server=server
+            )
+        except Student.DoesNotExist:
+            await ctx.reply(f"You are not registered, <@{ctx.author.id}>")
+            return
         await ctx.reply(f"You have {student.points} points, <@{ctx.author.id}>")
 
     @commands.command(name="present")

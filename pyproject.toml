@@ -43,6 +43,7 @@ asyncio_mode = "auto"
 addopts = "-vv --tb=short --cov=apps --cov-report=term-missing"
 DJANGO_SETTINGS_MODULE = "config.settings"
 filterwarnings = "ignore::DeprecationWarning"
+python_files = "tests_*.py"
 
 [tool.coverage.run]
 omit = ["**/tests/*", "**/__init__.py"]
