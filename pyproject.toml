@@ -12,6 +12,7 @@ description = "A bot to manage your association server."
 readme = "README.md"
 license = "MIT"
 keywords = ["discord", "bot", "association", "server"]
+requires-python = ">=3.11"
 classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
