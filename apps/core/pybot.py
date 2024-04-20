@@ -18,7 +18,6 @@ class Pybot(commands.Bot):
         Returns:
             Server: The server object.
         """
-
         server: Server
         server, _ = await Server.objects.aget_or_create(discord_id=ctx.guild.id)  # type: ignore
         return server
