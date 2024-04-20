@@ -19,17 +19,15 @@ classifiers = [
     "Operating System :: OS Independent",
     "Topic :: Communications :: Chat",
     "Topic :: Internet",
-    "Topic :: Utilities"
+    "Topic :: Utilities",
 ]
-dependencies = [
-    "discord.py",
-    "django",
-    "python-dotenv",
-]
+dependencies = ["discord.py", "django", "python-dotenv"]
 
 [project.optional-dependencies]
 dev = [
     "black",
+    "django-stubs[compatible-mypy]",
+    "freezegun",
     "mypy",
     "pytest",
     "pytest-asyncio",
@@ -37,7 +35,6 @@ dev = [
     "pytest-env",
     "pytest-django",
     "pytest-mock",
-    "freezegun",
 ]
 
 [tool.pytest.ini_options]
@@ -54,3 +51,9 @@ env = [
 
 [tool.coverage.run]
 omit = ["**/tests/*", "**/__init__.py"]
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+
+[tool.django-stubs]
+django_settings_module = "myproject.settings"

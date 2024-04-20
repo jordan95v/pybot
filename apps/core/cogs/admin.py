@@ -43,18 +43,6 @@ class AdminCog(commands.Cog):
         await server.asave()
         await ctx.reply(f"Association is now {'open' if server.is_open else 'closed'}")
 
-    @commands.command(name="status")
-    @commands.has_permissions(administrator=True)
-    async def status(self, ctx: commands.Context) -> None:
-        """Get the current status of the association.
-
-        Args:
-            ctx: The context of the command.
-        """
-
-        server: Server = await self.bot.get_server(ctx)
-        await ctx.reply(f"Association is {'open' if server.is_open else 'closed'}")
-
     @commands.command(name="set_points")
     @commands.has_permissions(administrator=True)
     async def set_points(

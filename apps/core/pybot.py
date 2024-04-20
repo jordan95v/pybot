@@ -39,6 +39,7 @@ class Pybot(commands.Bot):
         if isinstance(exception, commands.MissingRequiredArgument):
             await context.reply("You are missing a required argument. Check help :)")
             return
+        print(exception)
         await context.reply(
             "An error occurred. Check help or contact an administrator."
         )

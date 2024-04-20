@@ -1,6 +1,7 @@
 from datetime import UTC, datetime
 from typing import Any
 from unittest.mock import MagicMock
+import discord
 from discord.ext import commands
 from freezegun import freeze_time
 import pytest
@@ -12,6 +13,52 @@ from apps.core.pybot import Pybot
 
 @pytest.mark.django_db(transaction=True)
 class TestStudentCog:
+    @pytest.mark.parametrize(
+        "is_admin, expected_commands",
+        [
+            (True, 10),
+            (False, 6),
+        ],
+    )
+    async def test_help(
+        self,
+        pybot: Pybot,
+        context: commands.Context,
+        mocker: MockerFixture,
+        is_admin: bool,
+        expected_commands: int,
+    ) -> None:
+        reply_mock: MagicMock = mocker.patch.object(
+            commands.Context, "reply", return_value=None
+        )
+        context.author.guild_permissions.administrator = is_admin  # type: ignore
+        add_field_spy: MagicMock = mocker.spy(discord.Embed, "add_field")
+        cog: StudentCog = StudentCog(pybot)
+        await cog.help(cog, context)  # type: ignore
+        reply_mock.assert_called_once()
+        assert add_field_spy.call_count == expected_commands
+
+    @pytest.mark.parametrize("base_state", [True, False])
+    async def test_status(
+        self,
+        mocker: MockerFixture,
+        context: commands.Context,
+        pybot: Pybot,
+        base_state: bool,
+    ) -> None:
+        server: Server = await Server.objects.acreate(
+            discord_id=123456789, is_open=base_state
+        )
+        mocker.patch.object(Pybot, "get_server", return_value=server)
+        reply_mock: MagicMock = mocker.patch.object(
+            commands.Context, "reply", return_value=None
+        )
+        cog: StudentCog = StudentCog(pybot)
+        await cog.status(cog, context)  # type: ignore
+        reply_mock.assert_called_once_with(
+            f"Association is {'open' if server.is_open else 'closed'}"
+        )
+
     @pytest.mark.parametrize(
         "should_create_student, expected_message",
         [

@@ -1,0 +1,46 @@
+{
+    "students": [
+        {
+            "command": "help",
+            "description": "Get help on how to use the bot, ex: `help`"
+        },
+        {
+            "command": "status",
+            "description": "Get the current status of the server, ex: `status`"
+        },
+        {
+            "command": "register",
+            "description": "Register yourself as a student, ex: `register <first_name> <last_name> <class_name>`"
+        },
+        {
+            "command": "modify",
+            "description": "Modify your registration, ex: `modify <first_name> <last_name> <class_name>`"
+        },
+        {
+            "command": "points",
+            "description": "Get your current points, ex: `points`"
+        },
+        {
+            "command": "present",
+            "description": "Mark yourself as present, an admin have to confirm before you got the point, ex: `present`"
+        }
+    ],
+    "admins": [
+        {
+            "command": "change_points",
+            "description": "Change the number of points given to students, ex: `change_points <points>`"
+        },
+        {
+            "command": "switch",
+            "description": "Switch the server association state, from open to close and vice versa, ex: `switch`"
+        },
+        {
+            "command": "set_points",
+            "description": "Set the number of points of a given student, ex: `set_points <discord_id> <points>`"
+        },
+        {
+            "command": "export",
+            "description": "Export the list of students in a csv file, ex: `export`"
+        }
+    ]
+}

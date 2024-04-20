@@ -51,27 +51,6 @@ class TestAdminCog:
             f"Association is now {'open' if server.is_open else 'closed'}"
         )
 
-    @pytest.mark.parametrize("base_state", [True, False])
-    async def test_status(
-        self,
-        mocker: MockerFixture,
-        context: commands.Context,
-        pybot: Pybot,
-        base_state: bool,
-    ) -> None:
-        server: Server = await Server.objects.acreate(
-            discord_id=123456789, is_open=base_state
-        )
-        mocker.patch.object(Pybot, "get_server", return_value=server)
-        reply_mock: MagicMock = mocker.patch.object(
-            commands.Context, "reply", return_value=None
-        )
-        cog: AdminCog = AdminCog(pybot)
-        await cog.status(cog, context)  # type: ignore
-        reply_mock.assert_called_once_with(
-            f"Association is {'open' if server.is_open else 'closed'}"
-        )
-
     @pytest.mark.parametrize(
         "points, discord_id, should_create_student",
         [

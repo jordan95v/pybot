@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+from typing import Any
 import discord
 from discord.ext import commands
 from apps.core.models import Server, Student
@@ -9,6 +12,39 @@ __all__: list[str] = ["StudentCog"]
 class StudentCog(commands.Cog):
     def __init__(self, bot: Pybot) -> None:
         self.bot = bot
+
+    @commands.command(name="help")
+    async def help(self, ctx: commands.Context) -> None:
+        """Get the help message of the bot.
+
+        Args:
+            ctx: The context of the command.
+        """
+
+        help_path: Path = Path(__file__).parent.parent / "help.json"
+        help_json: dict[str, Any] = json.loads(help_path.read_bytes())
+        commands: list[dict[str, str]] = help_json["students"]
+        if ctx.author.guild_permissions.administrator:  # type: ignore
+            commands.extend(help_json["admins"])
+        embed: discord.Embed = discord.Embed(
+            title="Command list", color=discord.Color.purple()
+        )
+        for command in commands:
+            embed.add_field(
+                name=command["command"], value=command["description"], inline=False
+            )
+        await ctx.reply(embed=embed)
+
+    @commands.command(name="status")
+    async def status(self, ctx: commands.Context) -> None:
+        """Get the current status of the association.
+
+        Args:
+            ctx: The context of the command.
+        """
+
+        server: Server = await self.bot.get_server(ctx)
+        await ctx.reply(f"Association is {'open' if server.is_open else 'closed'}")
 
     @commands.command(name="register")
     async def register(
