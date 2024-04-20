@@ -10,6 +10,7 @@ Simple bot to manage your association with a discord server.
 - [Usage](#usage)
   - [Regular users commands](#regular-users-commands)
   - [Administrators commands](#administrators-commands)
+  - [Flushing database](#flushing-database)
 
 # Installation
 
@@ -23,11 +24,11 @@ you@your-pc:~$ pip install . # or .[dev] for development
 
 Then you need to create a `.env` file in the root of the project with the following content:
 
-| Variable                             | Description                                                                                        |
-| ------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| DISCORD_TOKEN                        | The token of your bot.                                                                             |
-| MAX_TIMESTAMP_BETWEEN_PARTICIPATIONS | The maximum time in seconds between two participations to be considered as a single participation. |
-| DISCORD_COMMAND_PREFIX               | The prefix of the commands.                                                                        |
+| Variable                             | Description                                                                                        | Required |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------- | -------- |
+| DISCORD_TOKEN                        | The token of your bot.                                                                             | Yes      |
+| MAX_TIMESTAMP_BETWEEN_PARTICIPATIONS | The maximum time in seconds between two participations to be considered as a single participation. | Yes       |
+| DISCORD_COMMAND_PREFIX               | The prefix of the commands.                                                                        | Yes       |
 
 And finally, you can run the bot with the following command:
 
@@ -99,6 +100,27 @@ The following commands are available for the administrators:
 - `change_points <points>`: Change the points that are given for a participation.
 - `switch`: Switch the status of the association (open or closed).
 - `set_points <points> <discord_id>`: Set the points of a user.
+
+## Flushing database
+
+In order to flush the database, you can use the following command:
+
+```bash
+you@your-pc:~$ python manage.py flush
+```
+
+Be aware that this will delete all the data in the database. If you want to delete every students for a given server, you can use the following commands:
+
+First, enter the django python shell:
+```bash
+you@your-pc:~$ python manage.py shell
+```
+
+Then, enter the following commands:
+```python
+from apps.core.models import Server
+Server.objects.filter(discord_id='the_server_discord_id').delete() # This will delete the server and all the students associated with it
+```
 
 <h1>Thanks for using Pybot!</h1>
 <img src="https://media1.tenor.com/m/VZJa7KFqKmMAAAAC/fish-anime.gif" width="100%">

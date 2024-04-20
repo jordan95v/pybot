@@ -34,6 +34,7 @@ dev = [
     "pytest",
     "pytest-asyncio",
     "pytest-cov",
+    "pytest-env",
     "pytest-django",
     "pytest-mock",
     "freezegun",
@@ -45,6 +46,11 @@ addopts = "-vv --tb=short --cov=apps --cov-report=term-missing"
 DJANGO_SETTINGS_MODULE = "config.settings"
 filterwarnings = "ignore::DeprecationWarning"
 python_files = "tests_*.py"
+env = [
+    "DISCORD_TOKEN=your_token_here",
+    "MAX_TIMESTAMP_BETWEEN_PARTICIPATIONS=86400",
+    "DISCORD_COMMAND_PREFIX=?",
+]
 
 [tool.coverage.run]
 omit = ["**/tests/*", "**/__init__.py"]
