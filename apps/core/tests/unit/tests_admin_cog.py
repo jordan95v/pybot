@@ -2,9 +2,9 @@ from unittest.mock import MagicMock
 import pytest
 from discord.ext import commands
 from pytest_mock import MockerFixture
-from apps.core.pybot import Pybot
-from apps.core.models import Server, Student
 from apps.core.cogs import AdminCog
+from apps.core.models import Server, Student
+from apps.core.pybot import Pybot
 
 
 @pytest.mark.django_db(transaction=True)

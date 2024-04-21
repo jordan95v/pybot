@@ -1,8 +1,8 @@
 import asyncio
 from typing import Any
-from django.core.management import BaseCommand
 import discord
 from discord.ext import commands
+from django.core.management import BaseCommand
 from apps.core.cogs import AdminCog, StudentCog
 from apps.core.pybot import Pybot
 from config.app_settings import DISCORD_TOKEN, DISCORD_COMMAND_PREFIX

@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
-from discord.ext import commands
 import pytest
+from discord.ext import commands
 from pytest_mock import MockerFixture
 from apps.core.cogs import AdminCog, StudentCog
 from apps.core.models import Server

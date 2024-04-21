@@ -2,9 +2,9 @@ from datetime import UTC, datetime
 from typing import Any
 from unittest.mock import MagicMock
 import discord
+import pytest
 from discord.ext import commands
 from freezegun import freeze_time
-import pytest
 from pytest_mock import MockerFixture
 from apps.core.cogs import StudentCog
 from apps.core.models import Server, Student
