@@ -4,15 +4,16 @@ Simple bot to manage your association with a discord server.
 
 <h1>Table of contents</h1>
 
-- [Installation](#installation)
+- [Manual installation](#manual-installation)
   - [Launch tests](#launch-tests)
   - [Example of MySQL configuration](#example-of-mysql-configuration)
+- [Docker installation](#docker-installation)
 - [Usage](#usage)
   - [Regular users commands](#regular-users-commands)
   - [Administrators commands](#administrators-commands)
   - [Flushing database](#flushing-database)
 
-# Installation
+# Manual installation
 
 First, you need to clone the repository and install the package with pip.
 
@@ -27,8 +28,8 @@ Then you need to create a `.env` file in the root of the project with the follow
 | Variable                             | Description                                                                                        | Required |
 | ------------------------------------ | -------------------------------------------------------------------------------------------------- | -------- |
 | DISCORD_TOKEN                        | The token of your bot.                                                                             | Yes      |
-| MAX_TIMESTAMP_BETWEEN_PARTICIPATIONS | The maximum time in seconds between two participations to be considered as a single participation. | Yes       |
-| DISCORD_COMMAND_PREFIX               | The prefix of the commands.                                                                        | Yes       |
+| MAX_TIMESTAMP_BETWEEN_PARTICIPATIONS | The maximum time in seconds between two participations to be considered as a single participation. | Yes      |
+| DISCORD_COMMAND_PREFIX               | The prefix of the commands.                                                                        | Yes      |
 
 And finally, you can run the bot with the following command:
 
@@ -48,6 +49,7 @@ You can launch the tests with the following command:
 ```bash
 you@your-pc:~$ pytest
 ```
+
 
 ## Example of MySQL configuration
 
@@ -74,6 +76,16 @@ password = your_password
 port = your_port
 default-character-set = utf8
 ```
+
+# Docker installation
+
+You can also use docker to run the bot. You need to create a `.env` with the same content as above and then run the following command:
+
+```bash
+you@your-pc:~$ docker-compose up
+```
+
+This will build the image and run the bot in a container.
 
 # Usage
 

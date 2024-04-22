@@ -1,0 +1,6 @@
+services:
+  pybot:
+    build: .
+    container_name: pybot
+    env_file: .env
+    entrypoint: /app/docker-entrypoint.sh
