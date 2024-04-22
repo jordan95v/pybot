@@ -7,7 +7,7 @@ packages = ["apps/", "config/"]
 
 [project]
 name = "pybot"
-version = "0.0.1"
+version = "1.0.2"
 description = "A bot to manage your association server."
 readme = "README.md"
 license = "MIT"
@@ -16,7 +16,8 @@ requires-python = ">=3.11"
 classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Operating System :: OS Independent",
     "Topic :: Communications :: Chat",
     "Topic :: Internet",
@@ -41,13 +42,13 @@ dev = [
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 addopts = "-vv --tb=short --cov=apps --cov-report=term-missing"
-DJANGO_SETTINGS_MODULE = "config.settings"
 filterwarnings = "ignore::DeprecationWarning"
 python_files = "tests_*.py"
 env = [
     "DISCORD_TOKEN=your_token_here",
     "MAX_TIMESTAMP_BETWEEN_PARTICIPATIONS=86400",
     "DISCORD_COMMAND_PREFIX=?",
+    "DJANGO_SETTINGS_MODULE=config.settings",     # Required for pytest-django
 ]
 
 [tool.coverage.run]
@@ -57,4 +58,4 @@ omit = ["**/tests/*", "**/__init__.py"]
 plugins = ["mypy_django_plugin.main"]
 
 [tool.django-stubs]
-django_settings_module = "myproject.settings"
+django_settings_module = "config.settings"
