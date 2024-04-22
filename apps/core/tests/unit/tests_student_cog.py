@@ -42,12 +42,12 @@ class TestStudentCog:
     async def test_status(
         self,
         mocker: MockerFixture,
-        context: commands.Context,
         pybot: Pybot,
+        context: commands.Context,
         base_state: bool,
     ) -> None:
         server: Server = await Server.objects.acreate(
-            discord_id=123456789, is_open=base_state
+            discord_id=context.guild.id, is_open=base_state  # type: ignore
         )
         mocker.patch.object(Pybot, "get_server", return_value=server)
         reply_mock: MagicMock = mocker.patch.object(
@@ -69,12 +69,12 @@ class TestStudentCog:
     async def test_register(
         self,
         mocker: MockerFixture,
-        context: commands.Context,
         pybot: Pybot,
+        context: commands.Context,
         should_create_student: bool,
         expected_message: str,
     ) -> None:
-        server: Server = await Server.objects.acreate(discord_id=context.author.id)
+        server: Server = await Server.objects.acreate(discord_id=context.guild.id)  # type: ignore
         mocker.patch.object(pybot, "get_server", return_value=server)
         reply_mock: MagicMock = mocker.patch.object(context, "reply")
         if should_create_student:
@@ -99,12 +99,12 @@ class TestStudentCog:
     async def test_modify(
         self,
         mocker: MockerFixture,
-        context: commands.Context,
         pybot: Pybot,
+        context: commands.Context,
         should_create_student: bool,
         expected_message: str,
     ) -> None:
-        server: Server = await Server.objects.acreate(discord_id=context.author.id)
+        server: Server = await Server.objects.acreate(discord_id=context.guild.id)  # type: ignore
         mocker.patch.object(pybot, "get_server", return_value=server)
         reply_mock: MagicMock = mocker.patch.object(context, "reply")
         if should_create_student:
@@ -129,12 +129,12 @@ class TestStudentCog:
     async def test_points(
         self,
         mocker: MockerFixture,
-        context: commands.Context,
         pybot: Pybot,
+        context: commands.Context,
         should_create_student: bool,
         expected_message: str,
     ) -> None:
-        server: Server = await Server.objects.acreate(discord_id=context.author.id)
+        server: Server = await Server.objects.acreate(discord_id=context.guild.id)  # type: ignore
         mocker.patch.object(pybot, "get_server", return_value=server)
         reply_mock: MagicMock = mocker.patch.object(context, "reply")
         if should_create_student:
@@ -162,8 +162,8 @@ class TestStudentCog:
     async def test_present(
         self,
         mocker: MockerFixture,
-        context: commands.Context,
         pybot: Pybot,
+        context: commands.Context,
         server_state: bool,
         should_create_student: bool,
         can_participate: bool,
@@ -173,7 +173,7 @@ class TestStudentCog:
             return None
 
         server: Server = await Server.objects.acreate(
-            discord_id=context.author.id, is_open=server_state
+            discord_id=context.guild.id, is_open=server_state  # type: ignore
         )
         mocker.patch.object(pybot, "get_server", return_value=server)
         reply_mock: MagicMock = mocker.patch.object(context, "reply")

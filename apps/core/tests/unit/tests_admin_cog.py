@@ -1,3 +1,4 @@
+import csv
 from unittest.mock import MagicMock
 import pytest
 from discord.ext import commands
@@ -13,11 +14,11 @@ class TestAdminCog:
     async def test_change_points(
         self,
         mocker: MockerFixture,
-        context: commands.Context,
         pybot: Pybot,
+        context: commands.Context,
         points: float,
     ) -> None:
-        server: Server = await Server.objects.acreate(discord_id=123456789)
+        server: Server = await Server.objects.acreate(discord_id=context.guild.id)  # type: ignore
         mocker.patch.object(Pybot, "get_server", return_value=server)
         cog: AdminCog = AdminCog(pybot)
         await cog.change_points(cog, context, points)  # type: ignore
@@ -31,13 +32,13 @@ class TestAdminCog:
     async def test_switch(
         self,
         mocker: MockerFixture,
-        context: commands.Context,
         pybot: Pybot,
+        context: commands.Context,
         base_state: bool,
         expected_state: bool,
     ) -> None:
         server: Server = await Server.objects.acreate(
-            discord_id=123456789, is_open=base_state
+            discord_id=context.guild.id, is_open=base_state  # type: ignore
         )
         mocker.patch.object(Pybot, "get_server", return_value=server)
         reply_mock: MagicMock = mocker.patch.object(
@@ -61,13 +62,13 @@ class TestAdminCog:
     async def test_set_points(
         self,
         mocker: MockerFixture,
-        context: commands.Context,
         pybot: Pybot,
+        context: commands.Context,
         points: float,
         discord_id: int,
         should_create_student: bool,
     ) -> None:
-        server: Server = await Server.objects.acreate(discord_id=123456789)
+        server: Server = await Server.objects.acreate(discord_id=context.guild.id)  # type: ignore
         mocker.patch.object(Pybot, "get_server", return_value=server)
         reply_mock: MagicMock = mocker.patch.object(
             commands.Context, "reply", return_value=None
@@ -83,3 +84,33 @@ class TestAdminCog:
         await cog.set_points(cog, context, points, discord_id)  # type: ignore
         await student.arefresh_from_db()
         assert student.points == points
+
+    @pytest.mark.parametrize(
+        "student_count",
+        [0, 1, 2],
+    )
+    async def test_export(
+        self,
+        mocker: MockerFixture,
+        pybot: Pybot,
+        context: commands.Context,
+        student_count: int,
+    ) -> None:
+        server: Server = await Server.objects.acreate(discord_id=context.guild.id)  # type: ignore
+        for i in range(student_count):
+            await Student.objects.acreate(
+                discord_id=123456789 + i,
+                first_name=f"John{i}",
+                last_name=f"Doe{i}",
+                server=server,
+            )
+        write_row_mock: MagicMock = mocker.patch.object(
+            csv.DictWriter, "writerow", return_value=None
+        )
+        reply_mock: MagicMock = mocker.patch.object(
+            commands.Context, "reply", return_value=None
+        )
+        cog: AdminCog = AdminCog(pybot)
+        await cog.export(cog, context)  # type: ignore
+        reply_mock.assert_called_once()
+        assert write_row_mock.call_count == student_count

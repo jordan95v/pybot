@@ -82,21 +82,24 @@ class AdminCog(commands.Cog):
         file: tempfile._TemporaryFileWrapper = tempfile.NamedTemporaryFile(
             mode="w", suffix=".csv", newline="", delete=False
         )
+        print(file.name)
         students: list[Student] = [
             student
             async for student in Student.objects.all()
             .prefetch_related("server")
             .filter(server__discord_id=ctx.guild.id)  # type: ignore
         ]
-        csv_writer: Any = csv.writer(file, delimiter=";", quotechar="|")
+        csv_writer: csv.DictWriter = csv.DictWriter(
+            file, fieldnames=["first_name", "last_name", "class_name", "points"]
+        )
         for student in students:
             csv_writer.writerow(
-                [
-                    student.first_name,
-                    student.last_name,
-                    student.class_name,
-                    student.points,
-                ]
+                dict(
+                    first_name=student.first_name,
+                    last_name=student.last_name,
+                    class_name=student.class_name,
+                    points=student.points,
+                )
             )
         file.close()
         await ctx.reply(file=discord.File(file.name))
