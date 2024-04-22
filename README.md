@@ -98,7 +98,7 @@ The following commands are available for the regular users:
 
 - `help`: Display the help message.
 - `register <first_name> <last_name> <class_name>`: Register yourself in the database.
-- `modify  <first_name> <last_name> <class_name>`: Modify your registration in the database.
+- `modify <first_name> <last_name> <class_name>`: Modify your registration in the database.
 - `present`: Register your participation in the current event.
 - `points`: Display the points of the current event.
 - `status`: Display the status of the association (open or closed).
