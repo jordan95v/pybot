@@ -1,7 +1,6 @@
 import csv
 import os
 import tempfile
-from typing import Any
 import discord
 from discord.ext import commands
 from apps.core.models import Server, Student

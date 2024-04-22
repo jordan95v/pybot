@@ -25,6 +25,15 @@ class Student(models.Model):
     )
 
     def can_participate(self, timestamp: float) -> bool:
+        """Check if the student can participate in an event.
+
+        Args:
+            timestamp: The timestamp of the event.
+
+        Returns:
+            bool: True if the student can participate, False otherwise.
+        """
+
         if self.last_participation is None:
             return True
         last_participation: float = self.last_participation.timestamp()
