@@ -41,9 +41,9 @@ class TestStudentCog:
     @pytest.mark.parametrize("base_state", [True, False])
     async def test_status(
         self,
-        mocker: MockerFixture,
         pybot: Pybot,
         context: commands.Context,
+        mocker: MockerFixture,
         base_state: bool,
     ) -> None:
         server: Server = await Server.objects.acreate(
@@ -68,9 +68,9 @@ class TestStudentCog:
     )
     async def test_register(
         self,
-        mocker: MockerFixture,
         pybot: Pybot,
         context: commands.Context,
+        mocker: MockerFixture,
         should_create_student: bool,
         expected_message: str,
     ) -> None:
@@ -98,9 +98,9 @@ class TestStudentCog:
     )
     async def test_modify(
         self,
-        mocker: MockerFixture,
         pybot: Pybot,
         context: commands.Context,
+        mocker: MockerFixture,
         should_create_student: bool,
         expected_message: str,
     ) -> None:
@@ -128,9 +128,9 @@ class TestStudentCog:
     )
     async def test_points(
         self,
-        mocker: MockerFixture,
         pybot: Pybot,
         context: commands.Context,
+        mocker: MockerFixture,
         should_create_student: bool,
         expected_message: str,
     ) -> None:
@@ -156,14 +156,14 @@ class TestStudentCog:
             (False, False, False, "Association is closed, <@1234567890>"),
             (True, False, False, "You are not registered, <@1234567890>"),
             (True, True, False, "You already participated today, <@1234567890>"),
-            # (True, True, True, "You have participated, <@1234567890>"), Mock error
+            (True, True, True, "You have participated, <@1234567890>"),
         ],
     )
     async def test_present(
         self,
-        mocker: MockerFixture,
         pybot: Pybot,
         context: commands.Context,
+        mocker: MockerFixture,
         server_state: bool,
         should_create_student: bool,
         can_participate: bool,

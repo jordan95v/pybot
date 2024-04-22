@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from apps.core.models import Server
+from config.app_settings import DISCORD_COMMAND_PREFIX
 
 __all__: list[str] = ["Pybot"]
 
@@ -39,7 +40,6 @@ class Pybot(commands.Bot):
         if isinstance(exception, commands.MissingRequiredArgument):
             await context.reply("You are missing a required argument. Check help :)")
             return
-        print(exception)
         await context.reply(
             "An error occurred. Check help or contact an administrator."
         )
@@ -48,4 +48,5 @@ class Pybot(commands.Bot):
     async def on_ready(self) -> None:
         """Change the presence of the bot on ready."""
 
-        await self.change_presence(activity=discord.Game(name="!help"))
+        command_name: str = DISCORD_COMMAND_PREFIX + "help"
+        await self.change_presence(activity=discord.Game(name=command_name))

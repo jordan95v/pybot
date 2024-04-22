@@ -126,7 +126,9 @@ class StudentCog(commands.Cog):
             ctx: The context of the command.
         """
 
-        def check(reaction: discord.Reaction, user: discord.Member) -> bool:
+        def check(
+            reaction: discord.Reaction, user: discord.Member
+        ) -> bool:  # pragma: no cover
             return (
                 reaction.message.id == ctx.message.id
                 and user.guild_permissions.administrator

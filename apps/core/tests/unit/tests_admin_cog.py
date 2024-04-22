@@ -13,9 +13,9 @@ class TestAdminCog:
     @pytest.mark.parametrize("points", [10, 20, 30])
     async def test_change_points(
         self,
-        mocker: MockerFixture,
         pybot: Pybot,
         context: commands.Context,
+        mocker: MockerFixture,
         points: float,
     ) -> None:
         server: Server = await Server.objects.acreate(discord_id=context.guild.id)  # type: ignore
@@ -31,9 +31,9 @@ class TestAdminCog:
     )
     async def test_switch(
         self,
-        mocker: MockerFixture,
         pybot: Pybot,
         context: commands.Context,
+        mocker: MockerFixture,
         base_state: bool,
         expected_state: bool,
     ) -> None:
@@ -61,9 +61,9 @@ class TestAdminCog:
     )
     async def test_set_points(
         self,
-        mocker: MockerFixture,
         pybot: Pybot,
         context: commands.Context,
+        mocker: MockerFixture,
         points: float,
         discord_id: int,
         should_create_student: bool,
@@ -91,9 +91,9 @@ class TestAdminCog:
     )
     async def test_export(
         self,
-        mocker: MockerFixture,
         pybot: Pybot,
         context: commands.Context,
+        mocker: MockerFixture,
         student_count: int,
     ) -> None:
         server: Server = await Server.objects.acreate(discord_id=context.guild.id)  # type: ignore
