@@ -23,7 +23,7 @@ classifiers = [
     "Topic :: Internet",
     "Topic :: Utilities",
 ]
-dependencies = ["discord.py", "django", "python-dotenv"]
+dependencies = ["discord.py", "django"]
 
 [project.optional-dependencies]
 dev = [
@@ -37,6 +37,7 @@ dev = [
     "pytest-env",
     "pytest-django",
     "pytest-mock",
+    "python-dotenv",
 ]
 
 [tool.pytest.ini_options]
