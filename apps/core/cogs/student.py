@@ -11,7 +11,7 @@ __all__: list[str] = ["StudentCog"]
 
 class StudentCog(commands.Cog):
     def __init__(self, bot: Pybot) -> None:
-        self.bot = bot
+        self.bot: Pybot = bot
 
     @commands.command(name="help")
     async def help(self, ctx: commands.Context) -> None:

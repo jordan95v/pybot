@@ -37,6 +37,13 @@ class Pybot(commands.Bot):
     async def on_command_error(
         self, context: commands.Context, exception: commands.CommandError
     ) -> None:
+        """Handle the command errors.
+
+        Args:
+            context: The context of the command.
+            exception: The exception raised.
+        """
+
         if isinstance(exception, commands.MissingRequiredArgument):
             await context.reply("You are missing a required argument. Check help :)")
             return
@@ -46,7 +53,7 @@ class Pybot(commands.Bot):
 
     @commands.Cog.listener()
     async def on_ready(self) -> None:
-        """Change the presence of the bot on ready."""
+        """Change the presence of the bot when it is ready."""
 
         command_name: str = DISCORD_COMMAND_PREFIX + "help"
         await self.change_presence(activity=discord.Game(name=command_name))

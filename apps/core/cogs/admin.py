@@ -11,7 +11,7 @@ __all__: list[str] = ["AdminCog"]
 
 class AdminCog(commands.Cog):
     def __init__(self, bot: Pybot) -> None:
-        self.bot = bot
+        self.bot: Pybot = bot
 
     @commands.command(name="change_points")
     @commands.has_permissions(administrator=True)
