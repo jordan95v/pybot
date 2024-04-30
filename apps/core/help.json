@@ -36,7 +36,7 @@
         },
         {
             "command": "set_points",
-            "description": "Set the number of points of a given student, ex: `set_points <discord_id> <points>`"
+            "description": "Set the number of points of a given student, ex: `set_points <points> <discord_id>`"
         },
         {
             "command": "export",
